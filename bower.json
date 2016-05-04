@@ -8,12 +8,16 @@
   "main": "",
   "license": "MIT",
   "devDependencies": {
-    "sinon": "http://sinonjs.org/releases/sinon-1.12.1.js"
+    "sinon": "http://sinonjs.org/releases/sinon-1.12.1.js",
+    "angular-mocks": "^1.5.5",
+    "bardjs": "^0.1.8"
   },
   "dependencies": {
     "bootstrap": "^3.3.6",
     "jquery": "~2.1.4",
-    "font-awesome": "^4.5.0"
+    "font-awesome": "^4.5.0",
+    "inline-toggle-menu": "^0.0.3",
+    "angular": "^1.5.5"
   },
   "keywords": [
     "javascript",

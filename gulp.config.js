@@ -1,6 +1,4 @@
 module.exports = function() {
-  'use strict';
-
   var client = './src/client/';
   var clientPlugin = client + 'plugin/';
   var clientApp = client + 'app/';
@@ -10,7 +8,7 @@ module.exports = function() {
   var specRunnerFile = 'specs.html';
   var temp = './.tmp/';
   var wiredep = require('wiredep');
-  var bowerFiles = wiredep({devDependencies: true})['js'];
+  var bowerFiles = wiredep({ devDependencies: true })['js'];
   var bower = {
     json: require('./bower.json'),
     directory: './bower_components/',
@@ -32,17 +30,21 @@ module.exports = function() {
     css: temp + 'styles.css',
     fonts: bower.directory + 'font-awesome/fonts/**/*.*',
     html: client + '**/*.html',
-    htmlTemplates: clientApp + '**/*.html',
+    htmltemplates: [clientApp + '**/*.html', clientPlugin + '**/*.html'],
     images: client + 'images/**/*.*',
     index: client + 'index.html',
-    // all js with no spec files
+    // app js, with no specs
     js: [
+      clientApp + '**/*.module.js',
+      clientPlugin + '**/*.module.js',
       clientApp + '**/*.js',
       clientPlugin + '**/*.js',
       '!' + clientApp + '**/*.spec.js',
       '!' + clientPlugin + '**/*.spec.js'
     ],
     jsOrder: [
+      '**/app.module.js',
+      '**/*.module.js',
       '**/*.js'
     ],
     less: [client + 'styles/**/*.less', pluginLess],
@@ -52,13 +54,45 @@ module.exports = function() {
     root: root,
     server: server,
     source: 'src/',
+    stubsjs: [
+      bower.directory + 'angular-mocks/angular-mocks.js',
+      client + 'stubs/**/*.js'
+    ],
     temp: temp,
-    /* End Paths */
 
-    /* Browser Sync */
+    /**
+     * optimized files
+     */
+    optimized: {
+      app: 'app.js',
+      lib: 'lib.js'
+    },
+
+    /**
+     * plato
+     */
+    plato: { js: clientApp + '**/*.js' },
+
+    /**
+     * browser sync
+     */
     browserReloadDelay: 1000,
 
-    /* Bower and NPM Files */
+    /**
+     * template cache
+     */
+    templateCache: {
+      file: 'templates.js',
+      options: {
+        module: 'app.core',
+        root: 'app/',
+        standalone: false
+      }
+    },
+
+    /**
+     * Bower and NPM files
+     */
     bower: bower,
     packages: [
       './package.json',
@@ -71,53 +105,75 @@ module.exports = function() {
       '!' + clientPlugin + '**/*.spec.js'
     ],
 
-    /* Spec Files */
+    /**
+     * specs.html, our HTML spec runner
+     */
     specRunner: client + specRunnerFile,
     specRunnerFile: specRunnerFile,
 
-    /* Spec Injections */
+    /**
+     * E2E
+     */
+    scenarios: client + '/test/e2e/**/*.spec.js',
+
+    /**
+     * The sequence of the injections into specs.html:
+     *  1 testlibraries
+     *      mocha setup
+     *  2 bower
+     *  3 js
+     *  4 spechelpers
+     *  5 specs
+     *  6 templates
+     */
     testlibraries: [
       nodeModules + '/mocha/mocha.js',
       nodeModules + '/chai/chai.js',
       nodeModules + '/sinon-chai/lib/sinon-chai.js'
     ],
     specHelpers: [client + 'test-helpers/*.js'],
-    specs: [clientPlugin + '**/*.spec.js'],
+    specs: [clientApp + '**/*.spec.js', clientPlugin + '**/*.spec.js'],
     serverIntegrationSpecs: [client + '/tests/server-integration/**/*.spec.js'],
 
-    /* Node Settings */
+    /**
+     * Node settings
+     */
     nodeServer: server + 'app.js',
     defaultPort: '8001'
   };
 
-  /* Config Functions */
   /**
-   * Wiredep and Bower Settings.
-   * @return {PlainObject} the default options for wiredep injection with bower.
+   * wiredep and bower settings
    */
   config.getWiredepDefaultOptions = function() {
-    return {
+    var options = {
       bowerJson: config.bower.json,
       directory: config.bower.directory,
       ignorePath: config.bower.ignorePath
     };
+    return options;
   };
 
   /**
-   * Karma Settings
+   * karma settings
    */
   config.karma = getKarmaOptions();
 
   return config;
-  ////////////////////////
+
+  ////////////////
 
   function getKarmaOptions() {
     var options = {
       files: [].concat(
         bowerFiles,
         config.specHelpers,
+        clientApp + '**/*.module.js',
+        clientPlugin + '**/*.module.js',
         clientApp + '**/*.js',
-        clientPlugin + '**/*.js'
+        clientPlugin + '**/*.js',
+        temp + config.templateCache.file,
+        config.serverIntegrationSpecs
       ),
       exclude: [],
       coverage: {
@@ -131,7 +187,7 @@ module.exports = function() {
       },
       preprocessors: {}
     };
-    options.preprocessors[client + '**/!(*.spec)+(.js)'] = ['coverage'];
+    options.preprocessors[clientApp + '**/!(*.spec)+(.js)', clientPlugin + '**/!(*.spec)+(.js)'] = ['coverage'];
     return options;
   }
 };
