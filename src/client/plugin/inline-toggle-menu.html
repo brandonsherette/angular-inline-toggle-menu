@@ -1,10 +1,10 @@
-<section class="container-fluid">
+<div ng-model="ngModel">
   <ul class="nav">
-    <li class="inline-toggle-menu">
+    <li class="inline-toggle-menu" ng-repeat="menu in ngModel">
       <span class="inline-toggle-menu-view">
         <span class="inline-toggle-menu-contents">
-          <a href="#" class="btn-default inline-toggle-menu-link">
-            Pencil
+          <a href="{{menu.url}}" class="btn-default inline-toggle-menu-link">
+            {{menu.title}}
           </a>
         </span>
         <span class="inline-toggle-menu-nav">
@@ -13,14 +13,15 @@
               <i class="toggle-icon fa fa-arrow-circle-left"></i>
             </button>
           </span>
-          <span class="nav-item">
-            <a href="#" class="btn btn-info"><i class="fa fa-edit"></i></a>
-          </span>
-          <span class="nav-item">
-            <a href="#" class="btn btn-danger"><i class="fa fa-close"></i></a>
+          <span class="nav-item" ng-repeat="toggleMenu in menu.toggleMenuItems">
+            <a 
+              href="{{toggleMenu.url}}" 
+              class="btn {{toggleMenu.buttonCss}}">
+              <i class="{{toggleMenu.iconCss}}"></i>
+            </a>
           </span>
         </span>
       </span>
     </li>
   </ul>
-</section>
+</div>

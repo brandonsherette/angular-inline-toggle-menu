@@ -1,3 +1,4 @@
+/* jshint -W117 */
 (function() {
   'use strict';
 
@@ -5,23 +6,36 @@
     .module('inlineToggleMenu')
     .directive('bsInlineToggleMenu', bsInlineToggleMenu);
 
+  bsInlineToggleMenu.$inject = ['$timeout'];
   /* @ngInject */
-  function bsInlineToggleMenu() {
+  function bsInlineToggleMenu($timeout) {
     var directive = {
       restrict: 'E',
       templateUrl: 'plugin/inline-toggle-menu.html',
+      scope: {
+        ngModel: '=',
+        menuId: '@'
+      },
       link: link
     };
 
     return directive;
     ////////////////////
 
-    function link(scope, element, attrs) {
-      InlineToggleMenu.init();
+    function link($scope, element, attrs) {
+      $scope.$on('$destroy', cleanUp);
+      $scope.$watch('ngModel', activate);
+    }
 
-      scope.on('$destroy', function() {
-        InlineToggleMenu.clearMenus();
-      });
+    function cleanUp() {
+      InlineToggleMenu.clearMenus();
+    }
+
+    function activate() {
+      // need to wait for dom to finish rendering
+      $timeout(function() {
+        InlineToggleMenu.init();
+      }, 0, false);
     }
   }
 })();

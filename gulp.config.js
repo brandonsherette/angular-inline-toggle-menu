@@ -8,7 +8,7 @@ module.exports = function() {
   var specRunnerFile = 'specs.html';
   var temp = './.tmp/';
   var wiredep = require('wiredep');
-  var bowerFiles = wiredep({ devDependencies: true })['js'];
+  var bowerFiles = wiredep({devDependencies: true})['js'];
   var bower = {
     json: require('./bower.json'),
     directory: './bower_components/',
@@ -59,7 +59,6 @@ module.exports = function() {
       client + 'stubs/**/*.js'
     ],
     temp: temp,
-
     /**
      * optimized files
      */
@@ -67,29 +66,25 @@ module.exports = function() {
       app: 'app.js',
       lib: 'lib.js'
     },
-
     /**
      * plato
      */
-    plato: { js: clientApp + '**/*.js' },
-
+    plato: {js: clientApp + '**/*.js'},
     /**
      * browser sync
      */
     browserReloadDelay: 1000,
-
     /**
      * template cache
      */
     templateCache: {
       file: 'templates.js',
       options: {
-        module: 'app.core',
-        root: 'app/',
+        module: 'app',
+        root: 'plugin/',
         standalone: false
       }
     },
-
     /**
      * Bower and NPM files
      */
@@ -98,24 +93,20 @@ module.exports = function() {
       './package.json',
       './bower.json'
     ],
-
     /* Plugin Info */
     pluginSrcCode: [
       clientPlugin + '**/*.js',
       '!' + clientPlugin + '**/*.spec.js'
     ],
-
     /**
      * specs.html, our HTML spec runner
      */
     specRunner: client + specRunnerFile,
     specRunnerFile: specRunnerFile,
-
     /**
      * E2E
      */
     scenarios: client + '/test/e2e/**/*.spec.js',
-
     /**
      * The sequence of the injections into specs.html:
      *  1 testlibraries
@@ -134,7 +125,6 @@ module.exports = function() {
     specHelpers: [client + 'test-helpers/*.js'],
     specs: [clientApp + '**/*.spec.js', clientPlugin + '**/*.spec.js'],
     serverIntegrationSpecs: [client + '/tests/server-integration/**/*.spec.js'],
-
     /**
      * Node settings
      */
@@ -174,20 +164,20 @@ module.exports = function() {
         clientPlugin + '**/*.js',
         temp + config.templateCache.file,
         config.serverIntegrationSpecs
-      ),
+        ),
       exclude: [],
       coverage: {
         dir: report + 'coverage',
         reporters: [
           // reporters not supporting the `file` property
-          { type: 'html', subdir: 'report-html' },
-          { type: 'lcov', subdir: 'report-lcov' },
-          { type: 'text-summary' } //, subdir: '.', file: 'text-summary.txt'}
+          {type: 'html', subdir: 'report-html'},
+          {type: 'lcov', subdir: 'report-lcov'},
+          {type: 'text-summary'} //, subdir: '.', file: 'text-summary.txt'}
         ]
       },
       preprocessors: {}
     };
-    options.preprocessors[clientApp + '**/!(*.spec)+(.js)', clientPlugin + '**/!(*.spec)+(.js)'] = ['coverage'];
+    options.preprocessors[clientPlugin + '**/!(*.spec)+(.js)'] = ['coverage'];
     return options;
   }
 };
