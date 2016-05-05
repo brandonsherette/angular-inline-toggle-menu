@@ -13,9 +13,19 @@ to pre-build your inline toggle menus with an angular model.
 bower install https://github.com/brandonsherette/angular-inline-toggle-menu.git --save
 ```
 
-##Add Code to Html Page
+##Add Dependency CSS
+```html
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="bower_components/inline-toggle-menu/dist/inline-toggle-menu.min.css">
+```
+
+##Add Scripts
 
 ```html
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="bower_components/inline-toggle-menu/dist/inline-toggle-menu.min.js"></script>
 <script src="bower_components/angular-inline-toggle-menu/dist/inline-toggle-menu.js></script>
 ```
 
