@@ -1,11 +1,13 @@
 {
   "name": "angular-inline-toggle-menu",
-  "description": "angular-inline-toggle-menu",
+  "description": "Angular version of the 'inline-toggle-menu'.",
   "authors": [
     "Brandon Sherette"
   ],
-  "version": "0.0.1",
-  "main": "",
+  "version": "0.0.2",
+  "main": [
+    "dist/inline-toggle-menu.js"
+  ],
   "license": "MIT",
   "devDependencies": {
     "sinon": "http://sinonjs.org/releases/sinon-1.12.1.js",

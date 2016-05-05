@@ -1,8 +1,10 @@
 {
   "name": "angular-inline-toggle-menu",
-  "version": "0.0.1",
-  "author": "Brandon Sherette",
-  "description": "",
+  "version": "0.0.2",
+  "authors": [
+    "Brandon Sherette"
+  ],
+  "description": "Angular version of the 'inline-toggle-menu'.",
   "license": "MIT",
   "scripts": {
     "init": "npm install",
