@@ -13,8 +13,7 @@
       restrict: 'E',
       templateUrl: 'inline-toggle-menu/inline-toggle-menu.html',
       scope: {
-        ngModel: '=',
-        menuId: '@'
+        ngModel: '='
       },
       link: link
     };
