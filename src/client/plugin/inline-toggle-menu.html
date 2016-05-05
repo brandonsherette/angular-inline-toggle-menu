@@ -15,14 +15,14 @@
           </span>
           <span class="nav-item" ng-repeat="toggleMenu in menu.toggleMenuItems">
             <a 
-              ng-show="toggleMenu.ngClick"
+              ng-if="toggleMenu.ngClick"
               href="{{toggleMenu.url}}"
               ng-click="toggleMenuClick(toggleMenu.ngClick)"
               class="btn {{toggleMenu.buttonCss}}">
               <i class="{{toggleMenu.iconCss}}"></i>
             </a>
             <a 
-              ng-hide="toggleMenu.ngClick"
+              ng-if="!toggleMenu.ngClick"
               href="{{toggleMenu.url}}"
               class="btn {{toggleMenu.buttonCss}}">
               <i class="{{toggleMenu.iconCss}}"></i>

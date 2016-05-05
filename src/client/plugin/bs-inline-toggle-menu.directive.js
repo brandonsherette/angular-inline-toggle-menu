@@ -11,8 +11,8 @@
   function bsInlineToggleMenu($timeout) {
     var directive = {
       restrict: 'E',
-      /*templateUrl: 'inline-toggle-menu/inline-toggle-menu.html',*/
-      templateUrl: 'plugin/inline-toggle-menu.html',
+      templateUrl: 'inline-toggle-menu/inline-toggle-menu.html', // build
+      /*templateUrl: 'plugin/inline-toggle-menu.html',*/ // serve-dev
       scope: {
         menuItems: '=ngModel'
       },
@@ -26,8 +26,9 @@
           var params = methodParts[1].split(')')[0].split(',');
           var ctrl = ($scope.$parent[prefix]);
 
+          console.log(ctrl + '[' + method + '].apply(ctrl, ' + params + ')');
           // pass up the call to the controller
-          ctrl[method].apply(this, params);
+          ctrl[method].apply(ctrl, params);
         };
       },
       link: link

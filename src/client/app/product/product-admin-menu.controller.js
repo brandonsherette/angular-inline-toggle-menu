@@ -5,9 +5,9 @@
     .module('app.product')
     .controller('ProductAdminMenuController', ProductAdminMenuController);
 
-  ProductAdminMenuController.$inject = ['$timeout', '$q'];
+  ProductAdminMenuController.$inject = ['$timeout', '$q', '$window'];
   /* @ngInject */
-  function ProductAdminMenuController($timeout, $q) {
+  function ProductAdminMenuController($timeout, $q, $window) {
     var vm = this;
     var simulateServerResponse = false;
 
@@ -73,7 +73,7 @@
               url: '#',
               buttonCss: 'btn-danger',
               iconCss: 'fa fa-close',
-              ngClick: 'vm.removeProduct("' + product.id + '")'
+              ngClick: 'vm.removeProduct(' + product.id + ')'
             }
           ]
         };
@@ -85,7 +85,40 @@
     }
 
     function removeProduct(id) {
-      window.alert('Removing Product ' + id);
+      var product = findProduct(id);
+      var productName;
+      var msg;
+      var response;
+
+      if (!product) {
+        throw new Error('Product Not Found!');
+      }
+
+      productName = product.name;
+      msg = 'Are you sure you want to delete: ' + productName + '?';
+      response = $window.confirm(msg);
+
+      if (response === true) {
+        // perform delete process here
+        $window.alert('Successfully Deleted ' + productName);
+      }else {
+        $window.alert('Delete Canceled');
+      }
+    }
+
+    function findProduct(id) {
+      var products = vm.products;
+      var product;
+
+      for (var x = 0; x < products.length; x += 1) {
+        product = products[x];
+
+        if (product.id === id) {
+          return product;
+        }
+      }
+
+      return null;
     }
   }
 })();
