@@ -195,76 +195,55 @@ gulp.task('build-specs', ['templatecache'], function(done) {
  * This is separate so we can run tests on
  * optimize before handling image or fonts
  */
-gulp.task('build', ['test', 'templatecache'], function() {
-  log('Building for distribution');
+gulp.task('build', ['build-src', 'build-optimize'],
+  function() {
+    log('Building for distribution');
 
-  var templateCache = config.temp + config.templateCache.file;
+    var msg = {
+      title: 'gulp build',
+      subtitle: 'Deployed to the ' + config.build + ' folder',
+      message: 'Plugin can now be deployed.'
+    };
 
-  // at this point templates have already been compiled and minified
-  // and stored in config.temp, so just concat to final js file
+    log(msg);
+  });
+
+gulp.task('build-src', ['test', 'templatecache'], function() {
+  log('Build src code');
+
   return gulp
     .src(config.pluginBuildCode)
-    /*.pipe($.ngAnnotate({add: true}))*/
-    /*.pipe($.uglify())*/
     .pipe($.concat(config.pluginName + '.js'))
-    /*.pipe(getHeader())*/
+    .pipe(getHeader())
     .pipe(gulp.dest(config.build));
 });
-/*gulp.task('build', ['optimize', 'images', 'fonts'], function() {
-  log('Building everything');
 
-  var msg = {
-    title: 'gulp build',
-    subtitle: 'Deployed to the build folder',
-    message: 'Running `gulp serve-build`'
-  };
-  del(config.temp);
-  log(msg);
-  notify(msg);
-});*/
+gulp.task('build-optimize', ['test', 'templatecache'], function() {
+  log('Building optimized code');
+
+  return gulp
+    .src(config.pluginBuildCode)
+    .pipe($.ngAnnotate({add: true}))
+    .pipe($.uglify())
+    .pipe($.concat(config.pluginName + '.min.js'))
+    .pipe(getHeader())
+    .pipe(gulp.dest(config.build));
+});
 
 /**
  * Optimize all files, move to a build folder,
  * and inject them into the new index.html
  * @return {Stream}
  */
-gulp.task('optimize', ['inject', 'test'], function() {
+gulp.task('resync', ['inject', 'test'], function() {
   log('Optimizing the js, css, and html');
 
-  var assets = $.useref.assets({searchPath: './'});
-  // Filters are named for the gulp-useref path
-  var cssFilter = $.filter('**/*.css');
-  var jsAppFilter = $.filter('**/' + config.optimized.app);
-  var jslibFilter = $.filter('**/' + config.optimized.lib);
-
-  var templateCache = config.temp + config.templateCache.file;
-
   return gulp
-    .src(config.index)
-    .pipe($.plumber())
-    .pipe(inject(templateCache, 'templates'))
-    .pipe(assets) // Gather all assets from the html with useref
-    // Get the css
-    .pipe(cssFilter)
-    .pipe($.minifyCss())
-    .pipe(cssFilter.restore())
-    // Get the custom javascript
-    .pipe(jsAppFilter)
+    .src(config.pluginBuildCode)
     .pipe($.ngAnnotate({add: true}))
     .pipe($.uglify())
+    .pipe($.concat(config.pluginName + '.js'))
     .pipe(getHeader())
-    .pipe(jsAppFilter.restore())
-    // Get the vendor javascript
-    .pipe(jslibFilter)
-    .pipe($.uglify()) // another option is to override wiredep to use min files
-    .pipe(jslibFilter.restore())
-    // Take inventory of the file names for future rev numbers
-    .pipe($.rev())
-    // Apply the concat and file replacement with useref
-    .pipe(assets.restore())
-    .pipe($.useref())
-    // Replace the file names in the html with rev numbers
-    .pipe($.revReplace())
     .pipe(gulp.dest(config.build));
 });
 
@@ -368,15 +347,6 @@ gulp.task('serve-dev', ['inject'], function() {
 });
 
 /**
- * serve the build environment
- * --debug-brk or --debug
- * --nosync
- */
-gulp.task('serve-build', ['build'], function() {
-  serve(false /*isDev*/);
-});
-
-/**
  * Bump the version
  * --type=pre will bump the prerelease version *.*.*-x
  * --type=patch or no flag will bump the patch version *.*.x
@@ -422,7 +392,7 @@ gulp.task('jsdoc', function() {
 /**
  * Optimize the code and re-load browserSync
  */
-gulp.task('browserSyncReload', ['optimize'], browserSync.reload);
+gulp.task('browserSyncReload', ['resync'], browserSync.reload);
 
 ////////////////
 
@@ -700,16 +670,6 @@ function bytediffFormatter(data) {
 }
 
 /**
- * Log an error message and emit the end of a task
- */
-//function errorLogger(error) {
-//    log('*** Start of Error ***');
-//    log(error);
-//    log('*** End of Error ***');
-//    this.emit('end');
-//}
-
-/**
  * Format a number as a percentage
  * @param  {Number} num       Number to format as a percent
  * @param  {Number} precision Precision of the decimal
@@ -742,6 +702,7 @@ function getHeader() {
 /**
  * Log a message or series of messages using chalk's blue color.
  * Can pass in a string, object or array.
+ * @param {Object|String} msg the msg
  */
 function log(msg) {
   if (typeof (msg) === 'object') {
@@ -757,6 +718,7 @@ function log(msg) {
 
 /**
  * Show OS level notification using node-notifier
+ * @param {Object|String} options
  */
 function notify(options) {
   var notifier = require('node-notifier');

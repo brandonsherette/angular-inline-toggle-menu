@@ -1,3 +1,10 @@
+/**
+ * angular-inline-toggle-menu - 
+ * @authors 
+ * @version v0.0.1
+ * @link 
+ * @license MIT
+ */
 (function() {
   'use strict';
 
