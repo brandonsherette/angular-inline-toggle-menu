@@ -195,7 +195,22 @@ gulp.task('build-specs', ['templatecache'], function(done) {
  * This is separate so we can run tests on
  * optimize before handling image or fonts
  */
-gulp.task('build', ['optimize', 'images', 'fonts'], function() {
+gulp.task('build', ['test', 'templatecache'], function() {
+  log('Building for distribution');
+
+  var templateCache = config.temp + config.templateCache.file;
+
+  // at this point templates have already been compiled and minified
+  // and stored in config.temp, so just concat to final js file
+  return gulp
+    .src(config.pluginBuildCode)
+    /*.pipe($.ngAnnotate({add: true}))*/
+    /*.pipe($.uglify())*/
+    .pipe($.concat(config.pluginName + '.js'))
+    /*.pipe(getHeader())*/
+    .pipe(gulp.dest(config.build));
+});
+/*gulp.task('build', ['optimize', 'images', 'fonts'], function() {
   log('Building everything');
 
   var msg = {
@@ -206,7 +221,7 @@ gulp.task('build', ['optimize', 'images', 'fonts'], function() {
   del(config.temp);
   log(msg);
   notify(msg);
-});
+});*/
 
 /**
  * Optimize all files, move to a build folder,
@@ -259,6 +274,17 @@ gulp.task('optimize', ['inject', 'test'], function() {
  */
 gulp.task('clean', function(done) {
   var delconfig = [].concat(config.build, config.temp, config.report);
+  log('Cleaning: ' + $.util.colors.blue(delconfig));
+  del(delconfig, done);
+});
+
+/**
+ * Removes all build files.
+ * @param {Function} done - callback when complete
+ */
+gulp.task('clean-build', function(done) {
+  var delconfig = [].concat(config.build);
+
   log('Cleaning: ' + $.util.colors.blue(delconfig));
   del(delconfig, done);
 });

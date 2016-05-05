@@ -11,7 +11,7 @@
   function bsInlineToggleMenu($timeout) {
     var directive = {
       restrict: 'E',
-      templateUrl: 'plugin/inline-toggle-menu.html',
+      templateUrl: 'inline-toggle-menu/inline-toggle-menu.html',
       scope: {
         ngModel: '=',
         menuId: '@'

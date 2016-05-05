@@ -80,8 +80,8 @@ module.exports = function() {
     templateCache: {
       file: 'templates.js',
       options: {
-        module: 'app',
-        root: 'plugin/',
+        module: 'inlineToggleMenu',
+        root: 'inline-toggle-menu/',
         standalone: false
       }
     },
@@ -95,6 +95,7 @@ module.exports = function() {
     ],
     /* Plugin Info */
     pluginSrcCode: [
+      clientPlugin + '**/*.module.js',
       clientPlugin + '**/*.js',
       '!' + clientPlugin + '**/*.spec.js'
     ],
@@ -143,6 +144,10 @@ module.exports = function() {
     };
     return options;
   };
+
+  config.pluginBuildCode = [].concat(
+    config.pluginSrcCode,
+    config.temp + config.templateCache.file);
 
   /**
    * karma settings

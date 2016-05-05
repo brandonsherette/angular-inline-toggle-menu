@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <title>angular-inline-toggle-menu</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta name="description" content="">
+
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="../bower_components/inline-toggle-menu/dist/inline-toggle-menu.css" />
+  </head>
+  <body style="margin-top: 75px;">
+    <header>
+      <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button"
+                    class="navbar-toggle collapsed"
+                    data-toggle="collapse"
+                    data-target="#main-menu"
+                    aria-expanded="false">
+              <span class="sr-only">Toggle Navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+              angular-inline-toggle-menu
+            </a>
+          </div>
+
+          <div class="collapse navbar-collapse pull-right" id="#main-menu">
+            <ul class="nav navbar-nav">
+              <li class="active">
+                <a href="/">
+                  Home <span class="sr-only">(current)</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <div ng-controller="ProductAdminMenuController as vm">
+      <bs-inline-toggle-menu ng-model="vm.menuItems"></bs-inline-toggle-menu>
+    </div>
+
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../bower_components/inline-toggle-menu/dist/inline-toggle-menu.js"></script>
+    <script src="../bower_components/angular/angular.js"></script>
+
+    <script src="../dist/inline-toggle-menu.js"></script>
+
+    <script>
+      angular
+        .module('app', ['inlineToggleMenu'])
+        .controller('ProductAdminMenuController', function() {
+          var vm = this;
+
+          vm.menuItems = getProductMenuItems();
+        });
+
+      function getProductData() {
+        var data = [
+          {
+            id: '2fba',
+            name: 'Pencil'
+          },
+          {
+            id: '1faa',
+            name: 'CD Player'
+          },
+          {
+            id: '5f31',
+            name: 'Trash Can'
+          }
+        ];
+
+        return data;
+      }
+
+      function getProductMenuItems() {
+        var data = getProductData();
+        var menuItems = [];
+
+        data.forEach(function(product) {
+          var menuItem = {
+            title: product.name,
+            url: '#/product/' + product.id,
+            toggleMenuItems: [
+              {
+                url: '#/product/edit/' + product.id,
+                buttonCss: 'btn-info',
+                iconCss: 'fa fa-edit'
+              },
+              {
+                url: '#/product/delete/' + product.id,
+                buttonCss: 'btn-danger',
+                iconCss: 'fa fa-close'
+              }
+            ]
+          };
+
+          menuItems.push(menuItem);
+        });
+
+        return menuItems;
+      }
+    </script>
+  </body>
+</html>

@@ -4,7 +4,7 @@ describe('bsInlineToggleMenu', function() {
   var scope;
 
   beforeEach(function() {
-    bard.appModule('inlineToggleMenu', 'app');
+    bard.appModule('inlineToggleMenu');
     bard.inject(this, '$compile', '$rootScope');
   });
 
