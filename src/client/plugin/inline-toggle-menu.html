@@ -1,6 +1,6 @@
-<div ng-model="ngModel">
+<div ng-model="menuItems">
   <ul class="nav">
-    <li class="inline-toggle-menu" ng-repeat="menu in ngModel">
+    <li class="inline-toggle-menu" ng-repeat="menu in menuItems">
       <span class="inline-toggle-menu-view">
         <span class="inline-toggle-menu-contents">
           <a href="{{menu.url}}" class="btn-default inline-toggle-menu-link">
@@ -15,7 +15,15 @@
           </span>
           <span class="nav-item" ng-repeat="toggleMenu in menu.toggleMenuItems">
             <a 
-              href="{{toggleMenu.url}}" 
+              ng-show="toggleMenu.ngClick"
+              href="{{toggleMenu.url}}"
+              ng-click="toggleMenuClick(toggleMenu.ngClick)"
+              class="btn {{toggleMenu.buttonCss}}">
+              <i class="{{toggleMenu.iconCss}}"></i>
+            </a>
+            <a 
+              ng-hide="toggleMenu.ngClick"
+              href="{{toggleMenu.url}}"
               class="btn {{toggleMenu.buttonCss}}">
               <i class="{{toggleMenu.iconCss}}"></i>
             </a>

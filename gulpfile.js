@@ -237,14 +237,6 @@ gulp.task('build-optimize', ['test', 'templatecache'], function() {
  */
 gulp.task('resync', ['inject', 'test'], function() {
   log('Optimizing the js, css, and html');
-
-  return gulp
-    .src(config.pluginBuildCode)
-    .pipe($.ngAnnotate({add: true}))
-    .pipe($.uglify())
-    .pipe($.concat(config.pluginName + '.js'))
-    .pipe(getHeader())
-    .pipe(gulp.dest(config.build));
 });
 
 /**

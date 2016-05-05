@@ -13,6 +13,7 @@
 
     vm.products = [];
     vm.menuItems = [];
+    vm.removeProduct = removeProduct;
 
     activate();
     //////////////
@@ -68,9 +69,11 @@
               iconCss: 'fa fa-edit'
             },
             {
-              url: '/product/delete/' + product.id,
+              /*url: '/product/delete/' + product.id,*/
+              url: '#',
               buttonCss: 'btn-danger',
-              iconCss: 'fa fa-close'
+              iconCss: 'fa fa-close',
+              ngClick: 'vm.removeProduct("' + product.id + '")'
             }
           ]
         };
@@ -79,6 +82,10 @@
       });
 
       vm.menuItems = menuItems;
+    }
+
+    function removeProduct(id) {
+      window.alert('Removing Product ' + id);
     }
   }
 })();
