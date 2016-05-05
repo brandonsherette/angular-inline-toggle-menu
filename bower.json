@@ -19,12 +19,15 @@
     "jquery": "~2.1.4",
     "font-awesome": "^4.5.0",
     "inline-toggle-menu": "^0.0.3",
-    "angular": "^1.5.5",
-    "angular-ui-router": "^0.2.18"
+    "angular": "^1.5.5"
   },
   "keywords": [
     "javascript",
-    "browser"
+    "browser",
+    "inline-toggle-menu",
+    "inline toggle menu",
+    "angular",
+    "angular inline toggle menu"
   ],
   "ignore": [
     "/.*",
