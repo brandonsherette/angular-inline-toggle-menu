@@ -5,6 +5,14 @@ This is an angular take on my inline toggle menu at <https://github.com/brandons
 It adds an angular directive to the module "inlineToggleMenu" and allows you 
 to pre-build your inline toggle menus with an angular model.
 
+#Updates
+
+## v0.0.2 to v0.0.3
+Added ngClick property to toggleMenuItem Objects. This allows you to add ng-click 
+operation to any of your toggle menu items. I will call the $parent scope's method.
+
+See Examples for more details on how to implement.
+
 #Installation
 
 ##Bower
@@ -59,9 +67,10 @@ var menuItems = [
         iconClass: 'fa fa-edit' // the css class for the icon
       },
       {
-        url: '#/delete/fa', // the url for the 2nd toggle menu item
+        url: '#', // the url for the 2nd toggle menu item
         buttonClass: 'btn-danger', // the button css class
-        iconClass: 'fa fa-close' // css class for the icon
+        iconClass: 'fa fa-close', // css class for the icon
+        ngClick: 'vm.removeItem(id)' // (OPTIONAL since v0.0.3) the method to call on ng-click it will target the parent scope in this case vm
       }
     ]
   },
@@ -95,6 +104,9 @@ angular
     var vm = this;
 
     vm.menuItems = getProductMenuItems();
+    vm.removeProduct = function(id) {
+      console.log('TODO: Remove Product ' + id);
+    };
   });
 
 function getProductData() {
@@ -131,9 +143,10 @@ function getProductMenuItems() {
           iconCss: 'fa fa-edit'
         },
         {
-          url: '#/product/delete/' + product.id,
+          url: '#',
           buttonCss: 'btn-danger',
-          iconCss: 'fa fa-close'
+          iconCss: 'fa fa-close',
+          ngClick: 'vm.removeProduct(' + product.id + ')'
         }
       ]
     };

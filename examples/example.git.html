@@ -63,6 +63,9 @@
           var vm = this;
 
           vm.menuItems = getProductMenuItems();
+          vm.removeProduct = function(id) {
+            window.alert('TODO: Remove Product ' + id);
+          };
         });
 
       function getProductData() {
@@ -99,9 +102,10 @@
                 iconCss: 'fa fa-edit'
               },
               {
-                url: '#/product/delete/' + product.id,
+                url: '#',
                 buttonCss: 'btn-danger',
-                iconCss: 'fa fa-close'
+                iconCss: 'fa fa-close',
+                ngClick: 'vm.removeProduct(' + product.id + ')'
               }
             ]
           };

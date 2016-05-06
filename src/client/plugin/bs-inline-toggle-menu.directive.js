@@ -16,6 +16,7 @@
       scope: {
         menuItems: '=ngModel'
       },
+      /* @ngInject */
       controller: function($scope) {
         $scope.toggleMenuClick = function(ngClick) {
           // seperate the ngClick parts into the ctrl prefix, method, and params
@@ -25,8 +26,6 @@
           var method = methodParts[0];
           var params = methodParts[1].split(')')[0].split(',');
           var ctrl = ($scope.$parent[prefix]);
-
-          console.log(ctrl + '[' + method + '].apply(ctrl, ' + params + ')');
           // pass up the call to the controller
           ctrl[method].apply(ctrl, params);
         };
