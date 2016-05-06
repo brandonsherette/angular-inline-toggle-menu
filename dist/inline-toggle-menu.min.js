@@ -1,7 +1,7 @@
 /**
  * angular-inline-toggle-menu - Angular version of the 'inline-toggle-menu'.
  * @authors Brandon Sherette
- * @version v0.0.4
+ * @version v0.0.5
  * @link 
  * @license MIT
  */
