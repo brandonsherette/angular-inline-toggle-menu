@@ -63,13 +63,13 @@ var menuItems = [
     toggleMenuItems: [ // array of all the menu items inside the toggle
       {
         url: '#/edit/fa', // the url for the 1st toggle menu item
-        buttonClass: 'btn-info', // the button css class
-        iconClass: 'fa fa-edit' // the css class for the icon
+        buttonCss: 'btn-info', // the button css class
+        iconCss: 'fa fa-edit' // the css class for the icon
       },
       {
         url: '#', // the url for the 2nd toggle menu item
-        buttonClass: 'btn-danger', // the button css class
-        iconClass: 'fa fa-close', // css class for the icon
+        buttonCss: 'btn-danger', // the button css class
+        iconCss: 'fa fa-close', // css class for the icon
         ngClick: 'vm.removeItem(id)' // (OPTIONAL since v0.0.3) the method to call on ng-click it will target the parent scope in this case vm
       }
     ]
@@ -80,13 +80,13 @@ var menuItems = [
     toggleMenuItems: [ // array of all the menu items inside the toggle
       {
         url: '#/edit/f2', // the url for the 1st toggle menu item
-        buttonClass: 'btn-info', // the button css class
-        iconClass: 'fa fa-edit' // the css class for the icon
+        buttonCss: 'btn-info', // the button css class
+        iconCss: 'fa fa-edit' // the css class for the icon
       },
       {
         url: '#/delete/f2', // the url for the 2nd toggle menu item
-        buttonClass: 'btn-danger', // the button css class
-        iconClass: 'fa fa-close' // css class for the icon
+        buttonCss: 'btn-danger', // the button css class
+        iconCss: 'fa fa-close' // css class for the icon
       }
     ]
   }
