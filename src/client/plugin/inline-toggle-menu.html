@@ -1,30 +1,26 @@
 <div ng-model="menuItems">
   <ul class="nav">
     <li class="inline-toggle-menu" ng-repeat="menu in menuItems">
-      <span class="inline-toggle-menu-view">
-        <span class="inline-toggle-menu-contents">
-          <a href="{{menu.url}}" class="btn-default inline-toggle-menu-link">
-            {{menu.title}}
-          </a>
-        </span>
-        <span class="inline-toggle-menu-nav">
-          <span class="nav-item inline-toggle-menu-toggle">
-            <button type="button" class="btn btn-primary">
-              <i class="toggle-icon fa fa-arrow-circle-left"></i>
-            </button>
-          </span>
-          <span class="nav-item" ng-repeat="toggleMenu in menu.toggleMenuItems">
-            <a 
-              ng-if="toggleMenu.ngClick"
-              href="{{toggleMenu.url}}"
-              ng-click="toggleMenuClick(toggleMenu.ngClick)"
-              class="btn {{toggleMenu.buttonCss}}">
+      <span class="inline-toggle-menu__view">
+        <a href="{{menu.url}}" class="btn btn-default inline-toggle-menu__link">
+          {{menu.title}}
+        </a>
+        <span class="inline-toggle-menu__nav">
+          <button type="button" 
+                  class="btn btn-primary inline-toggle-menu__toggle">
+            <i class="toggle-icon fa fa-arrow-circle-left"></i>
+          </button>
+          <span class="inline-toggle-menu__nav-group" 
+                ng-repeat="toggleMenu in menu.toggleMenuItems">
+            <a ng-if="toggleMenu.ngClick"
+               href="{{toggleMenu.url}}"
+               ng-click="toggleMenuClick(toggleMenu.ngClick)"
+               class="btn {{toggleMenu.buttonCss}}">
               <i class="{{toggleMenu.iconCss}}"></i>
             </a>
-            <a 
-              ng-if="!toggleMenu.ngClick"
-              href="{{toggleMenu.url}}"
-              class="btn {{toggleMenu.buttonCss}}">
+            <a ng-if="!toggleMenu.ngClick" 
+               href="{{toggleMenu.url}}" 
+               class="btn {{toggleMenu.buttonCss}}">
               <i class="{{toggleMenu.iconCss}}"></i>
             </a>
           </span>

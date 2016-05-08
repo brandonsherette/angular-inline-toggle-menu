@@ -19,7 +19,7 @@
     "jquery": "^2.1.4",
     "font-awesome": "^4.5.0",
     "angular": "^1.5.3",
-    "inline-toggle-menu": "^0.0.5"
+    "inline-toggle-menu": "^0.0.6"
   },
   "keywords": [
     "javascript",
