@@ -1,34 +1,43 @@
-#angular-inline-toggle-menu
+# angular-inline-toggle-menu
 
 This is an angular take on my inline toggle menu at <https://github.com/brandonsherette/inline-toggle-menu>.
 
 It adds an angular directive to the module "inlineToggleMenu" and allows you 
 to pre-build your inline toggle menus with an angular model.
 
-#Updates
+# Current Version
+v0.0.6
+
+# Updates
+
+## v0.0.3 to v0.0.6
+
+Updated inline-toggle-menu dependency to v0.0.8 which added responsive styling to the plugin 
+and many other API features.
 
 ## v0.0.2 to v0.0.3
+
 Added ngClick property to toggleMenuItem Objects. This allows you to add ng-click 
 operation to any of your toggle menu items. I will call the $parent scope's method.
 
 See Examples for more details on how to implement.
 
-#Installation
+# Installation
 
-##Bower
+## Bower
 
 ```bash
 bower install https://github.com/brandonsherette/angular-inline-toggle-menu.git --save
 ```
 
-##Add Dependency CSS
+## Add Dependency CSS
 ```html
 <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
 <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="bower_components/inline-toggle-menu/dist/inline-toggle-menu.min.css">
 ```
 
-##Add Scripts
+## Add Scripts
 
 ```html
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -37,20 +46,20 @@ bower install https://github.com/brandonsherette/angular-inline-toggle-menu.git 
 <script src="bower_components/angular-inline-toggle-menu/dist/inline-toggle-menu.js></script>
 ```
 
-##Add Module to App
+## Add Module to App
 
 ```js
 angular.module('app', ['inlineToggleMenu']);
 ```
 Where 'app' is the name of your main module (ex. ng-app="app").
 
-##Inline Toggle Menu Directive
+## Inline Toggle Menu Directive
 ```html
 <bs-inline-toggle-menu ng-model="menuItems"></bs-inline-toggle-menu>
 ```
 Where menuItems is an array of all your inline toggle menu links.
 
-##Menu Items
+## Menu Items
 
 Menu items are an array of data for the angular-inline-toggle-menu directive 
 to use to help build your html and should follow the following format.
@@ -93,7 +102,7 @@ var menuItems = [
 ];
 ```
 
-##Directive Example
+## Directive Example
 
 ### js
 
@@ -166,7 +175,7 @@ function getProductMenuItems() {
 </div>
 ```
 
-#Examples
+# Examples
 
 ## Installed via Bower
 Open **bower_components/angular-inline-toggle-menu/examples/example.bower.html.** in your web browser.
