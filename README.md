@@ -27,7 +27,7 @@ See Examples for more details on how to implement.
 ## Bower
 
 ```bash
-bower install https://github.com/brandonsherette/angular-inline-toggle-menu.git --save
+bower install angular-inline-toggle-menu --save
 ```
 
 ## Add Dependency CSS
