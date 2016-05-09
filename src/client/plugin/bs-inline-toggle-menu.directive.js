@@ -38,7 +38,7 @@
 
     function link($scope, element, attrs) {
       $scope.$on('$destroy', cleanUp);
-      $scope.$watch('ngModel', activate);
+      $scope.$watch('menuItems', activate);
     }
 
     function cleanUp() {

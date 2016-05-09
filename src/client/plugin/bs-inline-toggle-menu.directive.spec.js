@@ -71,6 +71,62 @@ describe('bsInlineToggleMenu', function() {
     expect($btnEdit.attr('ng-click')).to.not.be.defined;
   });
 
+  it('should have correct number of menus after adding a menu item', function() {
+    var menus = directiveEl.find('.inline-toggle-menu');
+    var product = {
+      id: '2aa1',
+      name: 'Car Oil'
+    };
+    var addMenuItem = {
+      title: product.name,
+      url: '#' + product.id,
+      toggleMenuItems: [
+        {
+          url: '#' + product.id,
+          buttonCss: 'btn-info',
+          iconCss: 'fa fa-edit'
+        },
+        {
+          url: '#' + product.id,
+          buttonCss: 'btn-danger',
+          iconCss: 'fa fa-close',
+          ngClick: 'vm.removeProduct(' + product.id + ')'
+        }
+      ]
+    };
+
+    expect(menus.length).to.equal(3);
+    expect(InlineToggleMenu.getMenus().length).to.equal(3);
+    // test adding items
+    mockController.addMenuItem(addMenuItem);
+    scope.menuItems = mockController.menuItems;
+    // let the view know to digest update
+    scope.$digest();
+
+    console.log(scope);
+    console.log(directiveEl.scope());
+
+    menus = directiveEl.find('.inline-toggle-menu');
+    expect(menus.length).to.equal(4);
+    expect(InlineToggleMenu.getMenus().length).to.equal(4);
+  });
+
+  it('should have correct number of menus after removing a menu item', function() {
+    var menus = directiveEl.find('.inline-toggle-menu');
+
+    expect(menus.length).to.equal(3);
+    expect(InlineToggleMenu.getMenus().length).to.equal(3);
+    // test adding items
+    mockController.removeLastMenuItem();
+    scope.menuItems = mockController.menuItems;
+    // let the view know to digest update
+    scope.$digest();
+
+    menus = directiveEl.find('.inline-toggle-menu');
+    expect(menus.length).to.equal(2);
+    expect(InlineToggleMenu.getMenus().length).to.equal(2);
+  });
+
   ////////////
 
   function getCompiledElement() {
@@ -94,7 +150,13 @@ describe('bsInlineToggleMenu', function() {
 
       vm.menuItems = getMockMenuItems();
       vm.removeProduct = function(id) {
-        console.log('Removing Product: ' + id);
+        //console.log('Removing Product: ' + id);
+      };
+      vm.removeLastMenuItem = function() {
+        vm.menuItems.pop();
+      };
+      vm.addMenuItem = function(menu) {
+        vm.menuItems.push(menu);
       };
     };
   }
