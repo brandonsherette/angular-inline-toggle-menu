@@ -21,12 +21,22 @@
         $scope.toggleMenuClick = function(ngClick) {
           // seperate the ngClick parts into the ctrl prefix, method, and params
           var clickParts = ngClick.split('.');
-          var prefix = clickParts[0];
-          var methodParts = clickParts[1].split('(');
+          var prefix;
+          var methodParts;
+
+          if (clickParts.length === 1) {
+            prefix = null;
+            methodParts = clickParts[0].split('(');
+          }else {
+            prefix = clickParts[0];
+            methodParts = clickParts[1].split('(');
+          }
+
           var method = methodParts[0];
           var params = methodParts[1].split(')')[0].split(',');
-          var ctrl = ($scope.$parent[prefix]);
+          var ctrl = (prefix) ? $scope.$parent[prefix] : $scope.$parent;
           // pass up the call to the controller
+          //console.log(ctrl + '[' + method + '].apply(' + ctrl + ', ' + params + ')');
           ctrl[method].apply(ctrl, params);
         };
       },

@@ -4,7 +4,7 @@
   "authors": [
     "Brandon Sherette"
   ],
-  "version": "0.0.6",
+  "version": "0.1.0",
   "main": [
     "dist/inline-toggle-menu.js"
   ],
