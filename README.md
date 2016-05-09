@@ -6,9 +6,13 @@ It adds an angular directive to the module "inlineToggleMenu" and allows you
 to pre-build your inline toggle menus with an angular model.
 
 # Current Version
-v0.0.6
+v0.1.2
 
 # Updates
+
+## v0.0.6 to v0.1.2
+
+Updated spec files and fixed issues with watching change in menuItems.
 
 ## v0.0.3 to v0.0.6
 
